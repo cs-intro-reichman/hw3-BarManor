@@ -28,22 +28,71 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+
+	char[] arr1 = preProcess(str1).toCharArray();
+	char[] arr2 = preProcess(str2).toCharArray();
+
+	if (arr1.length != arr2.length)
+	{
+	 return false;
+	}
+
+	for(int i = 0; i < arr1.length; i++)
+	{
+
+	 boolean found = false; // mark as not found, is an anagram until proven otherwise
+
+	 for (int j = 0; j < arr2.length; j++)
+	 {
+
+	  if (arr1[i] == arr2[j])
+	  {
+	   arr1[i] = '.'; // mark as used
+	   arr2[j] = ','; // mark as used
+	   found = true; // mark as found
+	   break;
+	  }
+
+	 }
+
+	 if (!found)
+	 {
+	  return false;
+	 }
+
+	}
+
+	return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+
+    return str.replaceAll("[^a-zA-Z]", "").toLowerCase();	// deletes non-letter characters and converts to lower-case
+
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+	char[] arr = str.toCharArray();
+	char[] anagramArr = new char[arr.length]; // a new array to hold the anagram
+
+	for (int i = 0; i < arr.length; i++)
+	{
+		int randIndex = (int)(Math.random() * arr.length);
+		while (arr[randIndex] == '.') // find an unused character
+		{
+		randIndex = (int)(Math.random() * arr.length);
+		}
+		anagramArr[i] = arr[randIndex];// assign to anagram
+		arr[randIndex] = '.'; // mark as used
+
+    }
+
+	return new String(anagramArr);
+
 	}
 }
